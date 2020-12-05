@@ -105,13 +105,26 @@ end:
 
 
 
-#USEC(): The increasing list of the number of electors in the electoral state for each the 50 states
+#USEC(): The increasing list of the number of electors in the electoral college for each the 50 states
 USEC:=proc():
 [3$8,4$5,5$3,6$6,7$3,8$2,9$3,10$4,11$4,12,13,14,15,16$2,18,20$2,29$2,38,55];
 end:
 
+#USEC2(): The increasing list of the number of electors in the electoral college for each of the 50 states, along 
+#with the probability that a state will vote blue and the probability that a state will vote red. Probability is 
+#calculated by the number of times that state has voted blue/red over the total number of elections since (including) 1964
+#(the year when the so-called Southern Strategy went into effect)
+#excluding third-party or independent candidates.
+#However, if a state has voted the same way for the last 6 elections, aka since 2000,
+#it is automatically counted as probability 1 for the dominating party and 0 for the weaker party.
+#Order of states: [Alaska,Delaware,DC,Montana,North Dakota,South Dakota,Vermont,Wyoming,Hawaii,Idaho,Maine,New Hampshire,Rhode Island,
+#Nebraska,New Mexico,West Virginia,Arkansas,Iowa,Kansas,Mississippi,Nevada,Utah,Connecticut,Oklahoma,Oregon,Kentucky,Louisiana,Alabama,
+#Colorado,South Carolina,Maryland,Minnesota,Missouri,Wisconsin,Arizona,Indiana,Massachusetts,Tennessee,Washington,Virginia,New Jersey,
+#North Carolina,Georgia,Michigan,Ohio,Illinois,Pennsylvania,Florida,New York,Texas,California]
 
-
+USEC2:=proc():
+[[3,0,1],[3,1,0],[3,1,0],[3,0,1],[3,0,1],[3,0,1],[3,1,0],[3,0,1],[4,1,0],[4,0,1],[4,1,0],[4,8/15,7/15],[4,1,0],[5,0,1],[5,8/15,7/15],[5,0,1],[6,0,1],[6,7/15,8/15],[6,0,1],[6,0,1],[6,7/15,8/15],[6,0,1],[7,1,0],[7,0,1],[7,10],[8,0,1],[8,0,1],[9,0,1],[9,6/15,9/15],[9,0,1],[10,1,0],[10,1,0],[10,0,1],[10,10/15,5/15],[11,2/15,13/15],[11,2/15,13/15],[11,1,0],[11,4/15,11/15],[12,1,0],[13,5/15,10/15],[14,1,0],[15,3/15,12/15],[16,4/14,10/14],[16,9/15,6/15],[18,6/15,9/15],[20,1,0],[20,10/15,5/15],[29,5/15,10/15],[29,1,0],[38,0,1],[55,1,0]];
+end:
 
 #GFv(L,p,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US
 #50 states + DC) outputs the polynomial whose coefficient of x^i is the number of ways that
