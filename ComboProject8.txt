@@ -10,32 +10,32 @@
 #Help():                                                                                     #
 #For Help with any of the functions, type                                                    # 
 #Help(FunctionName)                                                                          #
-#Team Leader:                                                                                #
-#Team members:                                                                               #
+#Team Leader: Michael Yen                                                                    #
+#Team members: Tianyi Liu, Zhizhang Deng                                                      #
 ##############################################################################################
-
 
 with(combinat):
 
 print(`This is ComboProject8.txt, a Maple package that is part of Project 8 in Dr. Z.'s Combinatorics Class at Rutgers University`):
 print(`To study and simulate vote counting`):
 print(``):
-print(`Team Leader: tbd `):
+print(`Team Leader: Michael Yen `):
 print(``):
-print(`Other Team members: tbd `):
+print(`Other Team members: Tianyi Liu, Zhizhang Deng `):
 print(``):
 print(`For a list of all the functions type: Help(); `):
 print(`For Help with any of the functions, type  Help(FunctionName):`):                                                                        
 with(combinat):
 Help:=proc()
 if nargs=0 then
-print(`The available procedures are: GFv, GFvp, IsConsistent, LC, SimuCount, SimuCount1, StatAnal, `):
-print(`StatAnalS, USEC`):
+print(`The available procedures are: GFv, GFvp, GFvp2, LC, IsConsistent`):
+print(`SimuCount, SimuCountInformed, SimuCount1, SimuCountInformed1, StatAnal, StatAnalS, USEC, USEC2,`):
 print(` `): 
 
 
+
 elif nargs=1 and args[1]=GFv then
-print(`GFv(L,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US`):
+print(`GFv(L,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US`)Hel;:
 print(` 50 states + DC) outputs the polynomial whose coefficient of x^i is the number of ways that `):
 print(` one of the two candidates gotten i votes.  `):
 print(`Try: `):
@@ -45,8 +45,16 @@ elif nargs=1 and args[1]=GFvp then
 print(`GFvp(L,p,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US`):
 print(`50 states + DC) outputs the polynomial whose coefficient of x^i is the number of ways that`):
 print(`one of the two candidates gotten i votes. We assume that the probability of the first candidate is p for each state`):
-print(`indpendently. Try:  `):
+print(`independently. Try:  `):
 print(`GFvp(USEC(),1/2,x);`):
+
+elif nargs=1 and args[1]=GFvp2 then
+print(`GFvp2(L,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US`):
+print(`50 states + DC) along with the probability that a state will vote blue and the probability that a state will vote red`): 
+print(`outputs the polynomial whose coefficient of x^i is the number of ways that one of the two candidates gotten i votes.`): 
+print(`Try: `):
+print(`GFvp2(USEC2(),x);`):
+
 
 elif nargs=1 and args[1]=LC then
 print(`LC(p): Outputs 1 with probability p and 0 with prob. 1-p. Try: `):
@@ -54,7 +62,7 @@ print(`LC(2/3);`):
 
 elif nargs=1 and args[1]=IsConsistent then
 print(`IsConsistent(H): Given a list of partial scores, H, outputs true if and only if the ultimate winner was always ahead if it`):
-print(`ended with a tie we declare the first candiate to be the winner. Try: `):
+print(`ended with a tie we declare the first candidate to be the winner. Try: `):
 print(`IsConsistent([[0,0],[1,0],[2,0],[2,1]]); `);
 
 
@@ -63,19 +71,36 @@ elif nargs=1 and args[1]=SimuCount then
 print(`SimuCount(L,p,N,K): Given a list L representing the  number of electors in nops(L) states, assuming that`):
 print(`the probability of Trump winning is p independently. Simulates N random counts`):
 print(`where every unpicked state is equally likely to be counted next. The output is the`):
-print(`Statistical analysis for these N random runs up to K moments, followed by the ratio of conisistent histories.Try:`):
+print(`Statistical analysis for these N random runs up to K moments, followed by the ratio of consistent histories.Try:`):
 print(`SimuCount(USEC(),1/2,1000,4);`):
+
+elif nargs=1 and args[1]=SimuCountInformed then
+print(`SimuCountInformed(L,N,K): simulates N random counting with the list L of the numbers of electors along with`):
+print(`the probability that each state will vote blue or vote red.`):
+print(`The output is the list consisting of the average, standard deviation, and first K moments, followed by the`):
+print(`ratio of consistent histories. Try:`):
+print(`SimuCountInformed(USEC2(),1000,4);`):
 
 elif nargs=1 and args[1]=SimuCount1 then
 print(`SimuCount1(L,p): Given a list L representing the  number of electors in nops(L) states, assuming that`):
 print(`the probability of Trump winning is p independently. Simulates ONE random count`):
 print(`where every unpicked state is equally likely to be counted next. The output is the`):
-print(`list of partial scores Try:`):
+print(`list of partial scores. Try:`):
 print(`SimuCount1(USEC(),1/2);`):
+
+elif nargs=1 and args[1]=SimuCountInformed1 then
+print(`SimuCountInformed1(L): Given a list L of the numbers of electors in a country with nops(L) units`):
+print(`(in the case of the US 50 states + DC) along with the probability that each state will vote`):
+print(`blue or vote red, simulates ONE random count where every unpicked state is equally likely to be`):
+print(`counted next. The output is the list of partial scores; the first part is blue and the second part`):
+print(`is red. Try:`):
+print(`SimuCountInformed1(USEC2());`):
+
+
 
 elif nargs=1 and args[1]=StatAnal then
 print(`StatAnal(f,x): Given a generating function f in x`):
-print(`finds (i) the average, (ii) the  standard-deviation (iii) the third-throgh-K SCALED moments about the mean. `):
+print(`finds (i) the average, (ii) the  standard-deviation (iii) the third-through-K SCALED moments about the mean. `):
 print(` (The r-th scaled moment about the mean of r.v. is the r-th moment divided by the r-th power of the standard-deviation) `):
 print(` Try: `):
 print(` StatAnal(GFv(USEC(),x), x,10); `):
@@ -83,7 +108,7 @@ print(` StatAnal(GFvp(USEC(),11/20,x), x,10); `):
 
 elif nargs=1 and args[1]=StatAnalS then
 print(`StatAnalS(f,x): Given a generating function f in x with SYMBOLIC coefficients`):
-print(`finds (i) the average, (ii) the  standard-deviation (iii) the third-throgh-K SCALED moments about the mean. `):
+print(`finds (i) the average, (ii) the  standard-deviation (iii) the third-through-K SCALED moments about the mean. `):
 print(` (The r-th scaled moment about the mean of r.v. is the r-th moment divided by the r-th power of the standard-deviation) `):
 print(` Try: `):
 print(` StatAnalS(GFvp(USEC(),p,x), x,2); `):
@@ -92,6 +117,22 @@ elif nargs=1 and args[1]=USEC then
 print(`USEC(): The increasing list of the number of electors in the electoral state for each the 50 states (+DC)`):
 print(`Try: `):
 print(` USEC(); `):
+print(``):
+
+elif nargs=1 and args[1]=USEC2 then
+print(`The increasing list of the number of electors in the electoral college for each of the 50 states, along `):
+print(`with the probability that a state will vote blue and the probability that a state will vote red. Probability is `):
+print(`calculated by the number of times that state has voted blue/red over the total number of elections since (including) 1964`):
+print(`(the year when the so-called Southern Strategy went into effect) excluding third-party or independent candidates.`):
+print(`However, if a state has voted the same way for the last 6 elections, aka since 2000,`):
+print(`it is automatically counted as probability 1 for the dominating party and 0 for the weaker party.`):
+print(`Order of states: [Alaska, Delaware, DC, Montana, North Dakota, South Dakota, Vermont, Wyoming, Hawaii, Idaho,`):
+print(`Maine, New Hampshire, Rhode Island, Nebraska, New Mexico, West Virginia, Arkansas, Iowa,Kansas, Mississippi,`):
+print(`Nevada, Utah, Connecticut, Oklahoma, Oregon, Kentucky, Louisiana, Alabama, Colorado, South Carolina, Maryland,`):
+print(`Minnesota, Missouri, Wisconsin, Arizona, Indiana, Massachusetts, Tennessee, Washington, Virginia, New Jersey,`):
+print(`North Carolina, Georgia, Michigan, Ohio, Illinois, Pennsylvania, Florida, New York, Texas, California]`):
+print(`Try: `):
+print(` USEC2(); `):
 print(``):
 
 else
@@ -113,8 +154,7 @@ end:
 #USEC2(): The increasing list of the number of electors in the electoral college for each of the 50 states, along 
 #with the probability that a state will vote blue and the probability that a state will vote red. Probability is 
 #calculated by the number of times that state has voted blue/red over the total number of elections since (including) 1964
-#(the year when the so-called Southern Strategy went into effect)
-#excluding third-party or independent candidates.
+#(the year when the so-called Southern Strategy went into effect) excluding third-party or independent candidates.
 #However, if a state has voted the same way for the last 6 elections, aka since 2000,
 #it is automatically counted as probability 1 for the dominating party and 0 for the weaker party.
 #Order of states: [Alaska,Delaware,DC,Montana,North Dakota,South Dakota,Vermont,Wyoming,Hawaii,Idaho,Maine,New Hampshire,Rhode Island,
@@ -123,14 +163,14 @@ end:
 #North Carolina,Georgia,Michigan,Ohio,Illinois,Pennsylvania,Florida,New York,Texas,California]
 
 USEC2:=proc():
-[[3,0,1],[3,1,0],[3,1,0],[3,0,1],[3,0,1],[3,0,1],[3,1,0],[3,0,1],[4,1,0],[4,0,1],[4,1,0],[4,8/15,7/15],[4,1,0],[5,0,1],[5,8/15,7/15],[5,0,1],[6,0,1],[6,7/15,8/15],[6,0,1],[6,0,1],[6,7/15,8/15],[6,0,1],[7,1,0],[7,0,1],[7,10],[8,0,1],[8,0,1],[9,0,1],[9,6/15,9/15],[9,0,1],[10,1,0],[10,1,0],[10,0,1],[10,10/15,5/15],[11,2/15,13/15],[11,2/15,13/15],[11,1,0],[11,4/15,11/15],[12,1,0],[13,5/15,10/15],[14,1,0],[15,3/15,12/15],[16,4/14,10/14],[16,9/15,6/15],[18,6/15,9/15],[20,1,0],[20,10/15,5/15],[29,5/15,10/15],[29,1,0],[38,0,1],[55,1,0]];
+[[3,0,1],[3,1,0],[3,1,0],[3,0,1],[3,0,1],[3,0,1],[3,1,0],[3,0,1],[4,1,0],[4,0,1],[4,1,0],[4,8/15,7/15],[4,1,0],[5,0,1],[5,8/15,7/15],[5,0,1],[6,0,1],[6,7/15,8/15],[6,0,1],[6,0,1],[6,7/15,8/15],[6,0,1],[7,1,0],[7,0,1],[7,1,0],[8,0,1],[8,0,1],[9,0,1],[9,6/15,9/15],[9,0,1],[10,1,0],[10,1,0],[10,0,1],[10,10/15,5/15],[11,2/15,13/15],[11,2/15,13/15],[11,1,0],[11,4/15,11/15],[12,1,0],[13,5/15,10/15],[14,1,0],[15,3/15,12/15],[16,4/14,10/14],[16,9/15,6/15],[18,6/15,9/15],[20,1,0],[20,10/15,5/15],[29,5/15,10/15],[29,1,0],[38,0,1],[55,1,0]];
 end:
 
-#GFv(L,p,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US
+#GFv(L,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US
 #50 states + DC) outputs the polynomial whose coefficient of x^i is the number of ways that
 #one of the two candidates gotten i votes. 
 #Try:
-#GFv(USEC(),1/2,x);
+#GFv(USEC(),x);
 GFv:=proc(L,x) local i:
 sort(expand(mul(1+x^L[i],i=1..nops(L)))):
 end:
@@ -138,15 +178,24 @@ end:
 #GFvp(L,p,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US
 #50 states + DC) outputs the polynomial whose coefficient of x^i is the number of ways that
 #one of the two candidates gotten i votes. We assume that the probability of the first candidate is p for each state
-#indpendently
+#independently
 #Try:
 #GFvp(USEC(),1/2,x);
 GFvp:=proc(L,p,x) local i:
 sort(expand(mul(1-p+p*x^L[i],i=1..nops(L)))):
 end:
 
+#GFvp2(L,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US
+#50 states + DC) along with the probability that a state will vote blue and the probability that a state will vote red, 
+#outputs the polynomial whose coefficient of x^i is the number of ways that one of the two candidates gotten i votes.
+#Try:
+#GFvp2(USEC2(),x);
+GFvp2:=proc(L,x) local i:
+sort(expand(mul(L[i,3]+L[i,2]*x^L[i,1],i=1..nops(L)))):
+end:
+
 #StatAnal(f,x): Given a generating function f in x
-#finds (i) the average, (ii) the  standard-deviation (iii) the third-throgh-K SCALED moments about the mean. 
+#finds (i) the average, (ii) the  standard-deviation (iii) the third-through-K SCALED moments about the mean. 
 #(The r-th scaled moment about the mean of r.v. is the r-th moment divided by the r-th power of the standard-deviation)
 #Try:
 #StatAnal(GFv(USEC(),x), x,10);
@@ -157,7 +206,7 @@ if min(seq(coeff(f,x,i),i=0..degree(f,x)))<0  or subs(x=1,f)=0 then
  RETURN(FAIL):
 fi:
 
-#turn it into a probability genearting function
+#turn it into a probability generating function
 f1:=expand(f/subs(x=1,f)):
 
 #mu is the average
@@ -175,7 +224,7 @@ f1:=x*diff(f1,x):
 #Doing it again (for the second moment)
 f1:=x*diff(f1,x):
 
-#The standar deviation is the square-root of the variance (alias second-moment about the mean)
+#The standard deviation is the square-root of the variance (alias second-moment about the mean)
 sig:=sqrt(subs(x=1,f1)):
 
 #The first two entries of M are the most important part, the expectation (alias mean, alias average) and the standard-deviation
@@ -211,9 +260,9 @@ end:
 
 
 #SimuCount1(L,p): Given a list L representing the  number of electors in nops(L) `states', assuming that
-#the probability of Trump winning is p independently. Simulates ONE random count
+#the probability of Trump winning is p independently, simulates ONE random count
 #where every unpicked state is equally likely to be counted next. The output is the
-#list of partial scores Try:
+#list of partial scores. Try:
 #SimuCount1(USEC(),1/2);
 
 SimuCount1:=proc(L,p) local H,cu,L1,r,v:
@@ -252,8 +301,51 @@ od:
 H:
 end:
 
+#SimuCountInformed1(L): Given a list L of the numbers of electors in a country with nops(L) units 
+#(in the case of the US 50 states + DC) along with the probability that each state will vote 
+#blue or vote red, simulates ONE random count where every unpicked state is equally likely to be 
+#counted next. The output is the list of partial scores; the first part is blue and the second part
+#is red. Try:
+#SimuCountInformed1(USEC2());
+
+SimuCountInformed1:=proc(L) local H,cu,L1,r,v:
+
+#At the start the score is [0,0] and the current history is [[]]:
+cu:=[0,0]:
+H:=[[0,0]]:
+
+#L1 is the list of not-yet-counted states, it starts with L
+L1:=L:
+
+while L1<>[] do
+
+#we pick a random state to count; L1[r,1] is the number of electoral votes at stake
+r:=rand(1..nops(L1))():
+
+#We toss a loaded coin with probability L1[r,2] (probability of going blue)
+v:=LC(L1[r,2]):
+
+#We update the current score
+if v=1 then
+ cu:=cu+[L1[r,1],0]:
+else
+ cu:=cu+[0,L1[r,1]]:
+fi:
+
+#We append the current score to the history list
+H:=[op(H),cu]:
+
+#We remove the current state from the still-to-count list
+
+L1:=[op(1..r-1,L1),op(r+1..nops(L1),L1)]:
+od:
+
+#We return the  history. The last element is the final score
+H:
+end:
+
 #IsConsistent(H): Given a list of partial scores, outputs true if and only if the ultimate winner was always ahead if it
-#ended with a tie we declare the first candiate to be the winner. Try:
+#ended with a tie we declare the first candidate to be the winner. Try:
 
 IsConsistent:=proc(H) local cu,i:
 cu:=H[nops(H)]:
@@ -277,13 +369,13 @@ fi:
 
 end:
 
-# SimuCount(L,p,N,K): simulates N random counting with the list L and probability of the first candiate  winning being p
+#SimuCount(L,p,N,K): simulates N random counting with the list L and probability of the first candidate  winning being p
 #The output is the list consisting of the average, standard deviation, and first K moments, followed by the
-#ratio of consistend histories. Try:
+#ratio of consistent histories. Try:
 #SimuCount(USEC(),1/2,1000,4);
 SimuCount:=proc(L,p,N,K) local f,x,co,H,i:
 
-#The initial count is of the number of consistend votes was 0
+#The initial count is of the number of consistent votes was 0
 co:=0:
 
 #We compute at the same time the generating function according to the number of votes of the first candidate  at the end
@@ -304,8 +396,38 @@ evalf(StatAnal(f,x,K)),evalf(co/N):
 
 end:
 
+#SimuCountInformed(L,N,K): simulates N random counting with the list L of the numbers of electors along with 
+#the probability that each state will vote blue or vote red.
+#The output is the list consisting of the average, standard deviation, and first K moments, followed by the
+#ratio of consistent histories. Try:
+#SimuCountInformed(USEC2(),1000,4);
+SimuCountInformed:=proc(L,N,K) local f,x,co,H,i:
+
+#The initial count is of the number of consistent votes was 0
+co:=0:
+
+#We compute at the same time the generating function according to the number of votes of the blue candidate  at the end
+#and keep track of those  where the vote was consistent
+
+f:=0:
+for i from 1 to N do
+ H:=SimuCountInformed1(L):
+
+ f:=f+x^H[nops(H)][1]:
+
+ if IsConsistent(H) then
+   co:=co+1:
+ fi:
+od:
+ 
+evalf(StatAnal(f,x,K)),evalf(co/N):
+
+end:
+
+
+
 #StatAnalS(f,x): Given a generating function f in x with SYMBOLIC coefficients
-#finds (i) the average, (ii) the  standard-deviation (iii) the third-throgh-K SCALED moments about the mean. 
+#finds (i) the average, (ii) the  standard-deviation (iii) the third-through-K SCALED moments about the mean. 
 #(The r-th scaled moment about the mean of r.v. is the r-th moment divided by the r-th power of the standard-deviation)
 #Try:
 #StatAnalS(GFv(USEC(),x), x,10);
@@ -313,7 +435,7 @@ StatAnalS:=proc(f,x,K) local f1,i,mu,sig,M,r:
 
 
 
-#turn it into a probability genearting function
+#turn it into a probability generating function
 f1:=expand(f/subs(x=1,f)):
 
 #mu is the average
@@ -331,7 +453,7 @@ f1:=x*diff(f1,x):
 #Doing it again (for the second moment)
 f1:=x*diff(f1,x):
 
-#The standar deviation is the square-root of the variance (alias second-moment about the mean)
+#The standard deviation is the square-root of the variance (alias second-moment about the mean)
 sig:=sqrt(subs(x=1,f1)):
 
 #The first two entries of M are the most important part, the expectation (alias mean, alias average) and the standard-deviation
