@@ -1,0 +1,12 @@
+https://en.wikipedia.org/wiki/List_of_United_States_presidential_election_results_by_state
+
+- Used to determine probabilities for USEC2()
+
+https://en.wikipedia.org/wiki/United_States_Electoral_College
+
+- Electoral votes by state
+
+https://en.wikipedia.org/wiki/Swing_state 
+
+- Very useful table down under "Swing states by results", could find a way to use it
+
