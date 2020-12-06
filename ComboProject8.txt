@@ -1,9 +1,9 @@
 ##############################################################################################
 ##This is ComboProject8.txt, a Maple package to generate and investigate  the US Electoral   #
-#College   system                                                                            #
+#College system                                                                              #
 ####It is the Maple package created by Team 8 in Dr. Z.'s Combinatorics Class at             #
 #Rutgers University, Fall 2020.                                                              #
-# Save this file as `ComboProject8.txt`, to use it                                           #
+#Save this file as `ComboProject8.txt`, to use it                                           #
 #Type, in a Maple session                                                                    #
 #read `ComboProject8.txt`):                                                                  #
 #and then to get a list of the functions type                                                #
@@ -11,7 +11,7 @@
 #For Help with any of the functions, type                                                    # 
 #Help(FunctionName)                                                                          #
 #Team Leader: Michael Yen                                                                    #
-#Team members: Tianyi Liu, Zhizhang Deng                                                      #
+#Team members: Tianyi Liu, Zhizhang Deng                                                     #
 ##############################################################################################
 
 with(combinat):
