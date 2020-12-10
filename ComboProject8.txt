@@ -35,15 +35,15 @@ print(` `):
 
 
 elif nargs=1 and args[1]=GFv then
-print(`GFv(L,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US`)Hel;:
+print(`GFv(L,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US`):
 print(` 50 states + DC) outputs the polynomial whose coefficient of x^i is the number of ways that `):
-print(` one of the two candidates gotten i votes.  `):
+print(` one of the two candidates gotten i votes. `):
 print(`Try: `):
 print(`GFv(USEC(),x);`):
 
 elif nargs=1 and args[1]=GFvp then
 print(`GFvp(L,p,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US`):
-print(`50 states + DC) outputs the polynomial whose coefficient of x^i is the number of ways that`):
+print(`50 states + DC) outputs the polynomial whose coefficient of x^i is the probability that`):
 print(`one of the two candidates gotten i votes. We assume that the probability of the first candidate is p for each state`):
 print(`independently. Try:  `):
 print(`GFvp(USEC(),1/2,x);`):
@@ -51,7 +51,7 @@ print(`GFvp(USEC(),1/2,x);`):
 elif nargs=1 and args[1]=GFvp2 then
 print(`GFvp2(L,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US`):
 print(`50 states + DC) along with the probability that a state will vote blue and the probability that a state will vote red`): 
-print(`outputs the polynomial whose coefficient of x^i is the number of ways that one of the two candidates gotten i votes.`): 
+print(`outputs the polynomial whose coefficient of x^i is the probability that one of the two candidates got i votes.`): 
 print(`Try: `):
 print(`GFvp2(USEC2(),x);`):
 
@@ -99,7 +99,7 @@ print(`SimuCountInformed1(USEC2());`):
 
 
 elif nargs=1 and args[1]=StatAnal then
-print(`StatAnal(f,x): Given a generating function f in x`):
+print(`StatAnal(f,x,K): Given a generating function f in x`):
 print(`finds (i) the average, (ii) the  standard-deviation (iii) the third-through-K SCALED moments about the mean. `):
 print(` (The r-th scaled moment about the mean of r.v. is the r-th moment divided by the r-th power of the standard-deviation) `):
 print(` Try: `):
@@ -107,7 +107,7 @@ print(` StatAnal(GFv(USEC(),x), x,10); `):
 print(` StatAnal(GFvp(USEC(),11/20,x), x,10); `):
 
 elif nargs=1 and args[1]=StatAnalS then
-print(`StatAnalS(f,x): Given a generating function f in x with SYMBOLIC coefficients`):
+print(`StatAnalS(f,x,K): Given a generating function f in x with SYMBOLIC coefficients`):
 print(`finds (i) the average, (ii) the  standard-deviation (iii) the third-through-K SCALED moments about the mean. `):
 print(` (The r-th scaled moment about the mean of r.v. is the r-th moment divided by the r-th power of the standard-deviation) `):
 print(` Try: `):
@@ -194,7 +194,7 @@ GFvp2:=proc(L,x) local i:
 sort(expand(mul(L[i,3]+L[i,2]*x^L[i,1],i=1..nops(L)))):
 end:
 
-#StatAnal(f,x): Given a generating function f in x
+#StatAnal(f,x,K): Given a generating function f in x
 #finds (i) the average, (ii) the  standard-deviation (iii) the third-through-K SCALED moments about the mean. 
 #(The r-th scaled moment about the mean of r.v. is the r-th moment divided by the r-th power of the standard-deviation)
 #Try:
@@ -426,7 +426,7 @@ end:
 
 
 
-#StatAnalS(f,x): Given a generating function f in x with SYMBOLIC coefficients
+#StatAnalS(f,x,K): Given a generating function f in x with SYMBOLIC coefficients
 #finds (i) the average, (ii) the  standard-deviation (iii) the third-through-K SCALED moments about the mean. 
 #(The r-th scaled moment about the mean of r.v. is the r-th moment divided by the r-th power of the standard-deviation)
 #Try:
