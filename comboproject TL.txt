@@ -1,0 +1,48 @@
+#Winprob1(n):Given a positive integer n, use simucountinformed to simulate n times and calculate the percentage of winning.
+#Try:
+#Winprob1(100)
+Winprob1:=proc(n) local sum,i:
+sum:=0:
+for i from 1 to n do 
+ if SimuCountInformed1(USEC2())[52][1]>SimuCountInformed1(USEC2())[52][2] then
+  sum:=sum+1:
+ fi:
+od:
+evalf(sum/n):
+end:
+
+#sp(L):Given a list of vote percentage of a state in the past years, output the state's winning probability with caliberated 
+winning margin of stronghold states and swing states.
+#Try:
+#sp([48, 45, 76, 46, 34])
+sp:=proc(L) local L1,i,S1,S2 ,mean2,sum,mean1:
+mean1:=0:sum:=0: mean2:=0: L1:=[]:S1:=[]: S2:=[]:L1:=[]:
+
+for i from 1 to nops(L) do
+ L1:=[op(L1),L[i]-(100-L[i])]:
+od:
+
+for i from 1 to nops(L) do
+ if abs(L1[i])<8 then
+  S1:=[op(S1),L1[i]]:
+ else 
+  S2:=[op(S2),L1[i]]:
+ fi:
+od: 
+
+mean2:=add(S2)/add(abs(s),s in S2): 
+
+for i from 1 to nops(S1) do
+ if S1[i]>0 then
+  sum:=sum+1:
+ fi:
+od:
+
+mean1:=sum/nops(S1): 
+
+evalf((mean1*nops(S1)+(1/2*mean2+1/2)*nops(S2))/nops(L)):
+
+end:
+
+
+
