@@ -10,3 +10,6 @@ https://en.wikipedia.org/wiki/Swing_state
 
 - Very useful table down under "Swing states by results", could find a way to use it
 
+https://www.usa.gov/election
+
+- Information on the Electoral College

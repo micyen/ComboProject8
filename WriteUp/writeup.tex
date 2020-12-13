@@ -1,0 +1,79 @@
+\documentclass[12pt]{article}
+\usepackage[top=1in, bottom=1in, left=0.8in, right=1in]{geometry}
+\usepackage{wrapfig}
+\usepackage{amsmath}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{biblatex}
+\pgfplotsset{compat=1.7}
+\addbibresource{}
+
+\begin{document}
+
+\begin{titlepage}
+   \begin{center}
+       \vspace*{1cm}
+       
+       \Huge
+       \textbf{Combo Project 8 Write-Up}
+
+       \vspace{0.5cm}
+       \LARGE
+        Studying and Simulating US (And Other) Electoral College Elections
+            
+       \vspace{1.5cm}
+
+       \textbf{Michael Yen} \\
+       \textbf{Tianyi Liu} \\
+       \textbf{Zhizhang Deng} \\
+
+       \vfill
+            
+       A Report Presented For:\\
+       Math 454 / Combinatorial Theory\\
+       Taught by Dr. Zeilberger
+            
+       \vspace{0.8cm}
+            
+       Rutgers University\\
+       12/14/20
+            
+   \end{center}
+\end{titlepage}
+
+\section{Summary}
+
+\paragraph{Background} For most elections in the United States, candidates are elected solely by the popular vote. However, for the presidential election, the president and vice president are not directly elected by voters; they are elected by the electoral voters of the Electoral College. In each state, citizens vote for their preferred presidential and vice presidential candidate. When the final votes are tallied, the winner of the state earns all of the electoral votes assigned to that state. In order to win the presidential election, the candidate needs to earn at least 270 votes, or a majority of the 538 total electoral votes. With this system, it is possible for a candidate to win the Electoral College but lose the popular vote, as was the case in the 2016 and 2000 election.
+
+\paragraph{Consideration 1} Some observations to consider are the existence of red, blue, and swing states. A state can ultimately vote either way, but red states are much more likely to vote for the Republican candidate and blue states are much more likely to vote for the Democratic candidate. Swing states are those that have historically voted for either of the two candidates. Since the status of a state being red, blue, or swing can change and is a more recent creation, it is interesting to see if using the current status of the states helps to predict Electoral College elections. Combo Project 8 takes into account voting patterns and swing state status with USEC2(), but the user can also choose to enter a probability of their choice that will be used indiscriminately for all states.
+
+\paragraph{Consideration 2}  Another important distinction is that Nebraska and Maine are the only two states that do not follow the winner-take-all rule used for the rest of the states. Two electoral votes are given to the popular vote winner of the state, and one electoral vote is given to the popular vote winner in each district. Although Maine is usually a blue state and Nebraska is usually a red state, the minority candidate in each state can win an electoral vote or two if they win in one or more of the districts, even if they lose the state as a whole. For simplicity, this project so far does not take into account the proportioning of electoral votes in these two states. Additionally, the proportioned electoral votes usually balance each other out because Maine and Nebraska are two of the states with fewer electoral votes and the minority candidate usually only wins one of the districts.
+
+\section{Purpose}
+
+The purpose of this project is to study and simulate United States Electoral College elections in order to conjecture probabilities that a candidate will garner enough votes to win the presidential election, given the probabilities of winning each individual state election. It can also be used for other countries with an Electoral College election system. We look at how using the popular vote and using the historical voting patterns of each state compare in predicting the result of the Electoral College vote. Besides probabilities, the functions in this package can be used to generate statistical computations like the average, the standard deviation, and the scaled moments about the mean for a generating function where each coefficient of $x^i$ represents the probability that a candidate earns $i$ votes.
+
+\section{Trends}
+
+When using either the 2020 popular vote for Biden as a general probability for a Biden win for all the states and the historical probabilities of each state voting for Trump or Biden, both experimental and calculated results estimate Biden as the slight winner in the electoral college with about 281 electoral votes on average and 274 electoral votes on average respectively. This undercuts the actual result of the 2020 presidential election, where Biden has earned a certified 306 electoral votes and Trump 232 electoral votes, but still leans in favor of a Biden win. More output numbers are available in the accompanying output file.
+
+\begin{thebibliography}{4}
+
+\bibitem{listwebsite} 
+List of United States Presidential Election Results by State,
+\url{https://en.wikipedia.org/wiki/List_of_United_States_presidential_election_results_by_state}
+
+\bibitem{electionprocess} 
+Presidential Election Process,
+\url{https://www.usa.gov/election}
+
+\bibitem{swingstate} 
+Swing State,
+\url{https://en.wikipedia.org/wiki/Swing\_state}
+
+\bibitem{electoralcollege} 
+United States Electoral College,
+\url{https://en.wikipedia.org/wiki/United_States_Electoral_College}
+\end{thebibliography}
+
+\end{document}
