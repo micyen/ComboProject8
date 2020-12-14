@@ -1,16 +1,36 @@
 ### Experimental Probability of Democratic Candidate Winning the Electoral Vote given the individual probability of the Candidate winning each state is the 2020 popular vote percentage ###
 
-#TODO
-#Coding: Can just recycle SimuCount1/SimuCount but instead of returning score, just return who won. Find the probability of winning for SimuCount.
+v := [81282896, 74222484];
+p := v[1]/(v[1]+v[2]);
+WinProb(USEC(),p,1000);
+
+0.5840000000
+
+### Calculated Probability of Democratic Candidate Winning the Electoral Vote given the individual probability of the Candidate winning each state is the 2020 popular vote percentage ###
+
+v := [81282896, 74222484]:
+p := v[1]/(v[1]+v[2]):
+f:=evalf(GFvp(USEC(),p,x)):
+evalf(add(coeff(f,x,i),i=270..degree(f,x)));
+
+0.5896628367
 
 ### Experimental Probability of Democratic Candidate Winning the Electoral Vote Using (Recent) Historical Data ###
 
-#TODO
-#Coding: Can just recycle SimuCountInformed1/SimuCountInformed but instead of returning score, just return who won. Find the probability of winning for SimuCountInformed.
+WinProbInformed(USEC2(),1000);
+
+0.5560000000
+
+### Calculated Probability of Democratic Candidate Winning the Electoral Vote Using (Recent) Historical Data ###
+
+f:=evalf(GFvp2(USEC2(),x)):
+evalf(add(coeff(f,x,i),i=270..degree(f,x)));
+
+0.5613012890
 
 ### Experimental Average Number of Electoral Votes for Democratic Candidate Using Only 2020 Popular Vote as individual probability of the Candidate winning each state ###
 
-v := [81282896, 74222484]
+v := [81282896, 74222484];
 p:=v[1]/(v[1]+v[2]);
 s1:=SimuCount(USEC(),p,1000,4);
 
@@ -24,7 +44,7 @@ s2:=SimuCountInformed(USEC2(),1000,4);
 
 ### Calculated Expected Average Number of Electoral Votes for Democratic Candidate Using Only 2020 Popular Vote individual probability of the Candidate winning each state ###
 
-v := [81282896, 74222484]
+v := [81282896, 74222484];
 p:=v[1]/(v[1]+v[2]);
 s1:=evalf(StatAnal(GFvp(USEC(),p,x),x,10));
 s1[1];
