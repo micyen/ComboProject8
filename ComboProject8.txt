@@ -144,12 +144,11 @@ fi:
 end:
 
 
-
-
 #USEC(): The increasing list of the number of electors in the electoral college for each the 50 states
 USEC:=proc():
-[3$8,4$5,5$3,6$6,7$3,8$2,9$3,10$4,11$4,12,13,14,15,16$2,18,20$2,29$2,38,55];
+  [3$8,4$5,5$3,6$6,7$3,8$2,9$3,10$4,11$4,12,13,14,15,16$2,18,20$2,29$2,38,55];
 end:
+
 
 #USEC2(): The increasing list of the number of electors in the electoral college for each of the 50 states, along 
 #with the probability that a state will vote blue and the probability that a state will vote red. Probability is 
@@ -161,10 +160,10 @@ end:
 #Nebraska,New Mexico,West Virginia,Arkansas,Iowa,Kansas,Mississippi,Nevada,Utah,Connecticut,Oklahoma,Oregon,Kentucky,Louisiana,Alabama,
 #Colorado,South Carolina,Maryland,Minnesota,Missouri,Wisconsin,Arizona,Indiana,Massachusetts,Tennessee,Washington,Virginia,New Jersey,
 #North Carolina,Georgia,Michigan,Ohio,Illinois,Pennsylvania,Florida,New York,Texas,California]
-
 USEC2:=proc():
-[[3,0,1],[3,1,0],[3,1,0],[3,0,1],[3,0,1],[3,0,1],[3,1,0],[3,0,1],[4,1,0],[4,0,1],[4,1,0],[4,8/15,7/15],[4,1,0],[5,0,1],[5,8/15,7/15],[5,0,1],[6,0,1],[6,7/15,8/15],[6,0,1],[6,0,1],[6,7/15,8/15],[6,0,1],[7,1,0],[7,0,1],[7,1,0],[8,0,1],[8,0,1],[9,0,1],[9,6/15,9/15],[9,0,1],[10,1,0],[10,1,0],[10,0,1],[10,10/15,5/15],[11,2/15,13/15],[11,2/15,13/15],[11,1,0],[11,4/15,11/15],[12,1,0],[13,5/15,10/15],[14,1,0],[15,3/15,12/15],[16,4/14,10/14],[16,9/15,6/15],[18,6/15,9/15],[20,1,0],[20,10/15,5/15],[29,5/15,10/15],[29,1,0],[38,0,1],[55,1,0]];
+  [[3,0,1],[3,1,0],[3,1,0],[3,0,1],[3,0,1],[3,0,1],[3,1,0],[3,0,1],[4,1,0],[4,0,1],[4,1,0],[4,8/15,7/15],[4,1,0],[5,0,1],[5,8/15,7/15],[5,0,1],[6,0,1],[6,7/15,8/15],[6,0,1],[6,0,1],[6,7/15,8/15],[6,0,1],[7,1,0],[7,0,1],[7,1,0],[8,0,1],[8,0,1],[9,0,1],[9,6/15,9/15],[9,0,1],[10,1,0],[10,1,0],[10,0,1],[10,10/15,5/15],[11,2/15,13/15],[11,2/15,13/15],[11,1,0],[11,4/15,11/15],[12,1,0],[13,5/15,10/15],[14,1,0],[15,3/15,12/15],[16,4/14,10/14],[16,9/15,6/15],[18,6/15,9/15],[20,1,0],[20,10/15,5/15],[29,5/15,10/15],[29,1,0],[38,0,1],[55,1,0]];
 end:
+
 
 #GFv(L,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US
 #50 states + DC) outputs the polynomial whose coefficient of x^i is the number of ways that
@@ -172,8 +171,9 @@ end:
 #Try:
 #GFv(USEC(),x);
 GFv:=proc(L,x) local i:
-sort(expand(mul(1+x^L[i],i=1..nops(L)))):
+  sort(expand(mul(1+x^L[i],i=1..nops(L)))):
 end:
+
 
 #GFvp(L,p,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US
 #50 states + DC) outputs the polynomial whose coefficient of x^i is the number of ways that
@@ -182,8 +182,9 @@ end:
 #Try:
 #GFvp(USEC(),1/2,x);
 GFvp:=proc(L,p,x) local i:
-sort(expand(mul(1-p+p*x^L[i],i=1..nops(L)))):
+  sort(expand(mul(1-p+p*x^L[i],i=1..nops(L)))):
 end:
+
 
 #GFvp2(L,x): Given a list L of the numbers of electors in a country with nops(L) units (in the case of the US
 #50 states + DC) along with the probability that a state will vote blue and the probability that a state will vote red, 
@@ -191,8 +192,9 @@ end:
 #Try:
 #GFvp2(USEC2(),x);
 GFvp2:=proc(L,x) local i:
-sort(expand(mul(L[i,3]+L[i,2]*x^L[i,1],i=1..nops(L)))):
+  sort(expand(mul(L[i,3]+L[i,2]*x^L[i,1],i=1..nops(L)))):
 end:
+
 
 #StatAnal(f,x,K): Given a generating function f in x
 #finds (i) the average, (ii) the  standard-deviation (iii) the third-through-K SCALED moments about the mean. 
@@ -201,61 +203,87 @@ end:
 #StatAnal(GFv(USEC(),x), x,10);
 StatAnal:=proc(f,x,K) local f1,i,mu,sig,M,r:
 
-if min(seq(coeff(f,x,i),i=0..degree(f,x)))<0  or subs(x=1,f)=0 then
- print(`Can't be made into a probability generating function `):
- RETURN(FAIL):
-fi:
+  if min(seq(coeff(f,x,i),i=0..degree(f,x)))<0  or subs(x=1,f)=0 then
+    print(`Can't be made into a probability generating function `):
+    RETURN(FAIL):
+  fi:
 
-#turn it into a probability generating function
-f1:=expand(f/subs(x=1,f)):
+  #turn it into a probability generating function
+  f1:=expand(f/subs(x=1,f)):
 
-#mu is the average
-mu:=subs(x=1,diff(f1,x)):
+  #mu is the average
+  mu:=subs(x=1,diff(f1,x)):
 
-#We redefine f1 to be the probability generating function for the CENTRALIZED prob. generating function
-#where the average is 1
-f1:=expand(f1/x^mu):
+  #We redefine f1 to be the probability generating function for the CENTRALIZED prob. generating function
+  #where the average is 1
+  f1:=expand(f1/x^mu):
 
-#We keep applying the operation f->x*diff(f,x) in order to computer higher moments
+  #We keep applying the operation f->x*diff(f,x) in order to computer higher moments
 
-#Doing it once
-f1:=x*diff(f1,x):
+  #Doing it once
+  f1:=x*diff(f1,x):
 
-#Doing it again (for the second moment)
-f1:=x*diff(f1,x):
+  #Doing it again (for the second moment)
+  f1:=x*diff(f1,x):
 
-#The standard deviation is the square-root of the variance (alias second-moment about the mean)
-sig:=sqrt(subs(x=1,f1)):
+  #The standard deviation is the square-root of the variance (alias second-moment about the mean)
+  sig:=sqrt(subs(x=1,f1)):
 
-#The first two entries of M are the most important part, the expectation (alias mean, alias average) and the standard-deviation
+  #The first two entries of M are the most important part, the expectation (alias mean, alias average) and the standard-deviation
 
-M:=[mu,sig]:
+  M:=[mu,sig]:
 
 
 
-#We now find the higher moments about the mean
-for r from 3 to K do
-f1:=expand(x*diff(f1,x)):
-M:=[op(M),subs(x=1,f1)/sig^r]:
-od:
+  #We now find the higher moments about the mean
+  for r from 3 to K do
+    f1:=expand(x*diff(f1,x)):
+    M:=[op(M),subs(x=1,f1)/sig^r]:
+  od:
 
-#The final output is the list of length K as desired
-M:
+  #The final output is the list of length K as desired
+  M:
 
 end:
+
 
 #LC(p): Outputs 1 with probability p and 0 with prob. 1-p. Try: 
 #LC(2/3);
 LC:=proc(p) local a,b,ra:
-a:=numer(p):
-b:=denom(p):
-ra:=rand(1..b)():
+  a:=numer(p):
+  b:=denom(p):
+  ra:=rand(1..b)():
 
-if ra<=a then
- 1:
-else
- 0:
-fi:
+  if ra<=a then
+    1:
+  else
+    0:
+  fi:
+end:
+
+
+#IsConsistent(H): Given a list of partial scores, outputs true if and only if the ultimate winner was always ahead if it
+#ended with a tie we declare the first candidate to be the winner. Try:
+IsConsistent:=proc(H) local cu,i:
+  cu:=H[nops(H)]:
+
+  if cu[1]>=cu[2] then
+    if min(seq(H[i][1]-H[i][2],i=1..nops(H)-1))>=0 then
+      RETURN(true):
+    else
+      RETURN(false):
+    fi:
+
+  else
+
+    if min(seq(H[i][2]-H[i][1],i=1..nops(H)-1))>=0 then
+      RETURN(true):
+    else
+      RETURN(false):
+    fi:
+
+  fi:
+
 end:
 
 
@@ -264,42 +292,42 @@ end:
 #where every unpicked state is equally likely to be counted next. The output is the
 #list of partial scores. Try:
 #SimuCount1(USEC(),1/2);
-
 SimuCount1:=proc(L,p) local H,cu,L1,r,v:
 
-#At the start the score is [0,0] and the current history is [[]]:
-cu:=[0,0]:
-H:=[[0,0]]:
+  #At the start the score is [0,0] and the current history is [[]]:
+  cu:=[0,0]:
+  H:=[[0,0]]:
 
-#L1 is the list of not-yet-counted states, it starts with L
-L1:=L:
+  #L1 is the list of not-yet-counted states, it starts with L
+  L1:=L:
 
-while L1<>[] do
+  while L1<>[] do
 
-#we pick a random state to count
-r:=rand(1..nops(L1))():
+    #we pick a random state to count
+    r:=rand(1..nops(L1))():
 
-#We toss a loaded coin with probability p
-v:=LC(p):
+    #We toss a loaded coin with probability p
+    v:=LC(p):
 
-#We update the current score
-if v=1 then
- cu:=cu+[L1[r],0]:
-else
- cu:=cu+[0,L1[r]]:
-fi:
+    #We update the current score
+    if v=1 then
+      cu:=cu+[L1[r],0]:
+    else
+      cu:=cu+[0,L1[r]]:
+    fi:
 
-#We append the current score to the history list
-H:=[op(H),cu]:
+    #We append the current score to the history list
+    H:=[op(H),cu]:
 
-#We remove the current state from the still-to-count list
+    #We remove the current state from the still-to-count list
 
-L1:=[op(1..r-1,L1),op(r+1..nops(L1),L1)]:
-od:
+    L1:=[op(1..r-1,L1),op(r+1..nops(L1),L1)]:
+  od:
 
-#We return the  history. The last element is the final score
-H:
+  #We return the  history. The last element is the final score
+  H:
 end:
+
 
 #SimuCountInformed1(L): Given a list L of the numbers of electors in a country with nops(L) units 
 #(in the case of the US 50 states + DC) along with the probability that each state will vote 
@@ -307,67 +335,42 @@ end:
 #counted next. The output is the list of partial scores; the first part is blue and the second part
 #is red. Try:
 #SimuCountInformed1(USEC2());
-
 SimuCountInformed1:=proc(L) local H,cu,L1,r,v:
 
-#At the start the score is [0,0] and the current history is [[]]:
-cu:=[0,0]:
-H:=[[0,0]]:
+  #At the start the score is [0,0] and the current history is [[]]:
+  cu:=[0,0]:
+  H:=[[0,0]]:
 
-#L1 is the list of not-yet-counted states, it starts with L
-L1:=L:
+  #L1 is the list of not-yet-counted states, it starts with L
+  L1:=L:
 
-while L1<>[] do
+  while L1<>[] do
 
-#we pick a random state to count; L1[r,1] is the number of electoral votes at stake
-r:=rand(1..nops(L1))():
+    #we pick a random state to count; L1[r,1] is the number of electoral votes at stake
+    r:=rand(1..nops(L1))():
 
-#We toss a loaded coin with probability L1[r,2] (probability of going blue)
-v:=LC(L1[r,2]):
+    #We toss a loaded coin with probability L1[r,2] (probability of going blue)
+    v:=LC(L1[r,2]):
 
-#We update the current score
-if v=1 then
- cu:=cu+[L1[r,1],0]:
-else
- cu:=cu+[0,L1[r,1]]:
-fi:
+    #We update the current score
+    if v=1 then
+      cu:=cu+[L1[r,1],0]:
+    else
+      cu:=cu+[0,L1[r,1]]:
+    fi:
 
-#We append the current score to the history list
-H:=[op(H),cu]:
+    #We append the current score to the history list
+    H:=[op(H),cu]:
 
-#We remove the current state from the still-to-count list
+    #We remove the current state from the still-to-count list
 
-L1:=[op(1..r-1,L1),op(r+1..nops(L1),L1)]:
-od:
+    L1:=[op(1..r-1,L1),op(r+1..nops(L1),L1)]:
+  od:
 
-#We return the  history. The last element is the final score
-H:
+  #We return the  history. The last element is the final score
+  H:
 end:
 
-#IsConsistent(H): Given a list of partial scores, outputs true if and only if the ultimate winner was always ahead if it
-#ended with a tie we declare the first candidate to be the winner. Try:
-
-IsConsistent:=proc(H) local cu,i:
-cu:=H[nops(H)]:
-
-if cu[1]>=cu[2] then
- if min(seq(H[i][1]-H[i][2],i=1..nops(H)-1))>=0 then
-  RETURN(true):
- else
-  RETURN(false):
-fi:
-
-else
-
- if min(seq(H[i][2]-H[i][1],i=1..nops(H)-1))>=0 then
-  RETURN(true):
- else
-  RETURN(false):
-fi:
-
-fi:
-
-end:
 
 #SimuCount(L,p,N,K): simulates N random counting with the list L and probability of the first candidate  winning being p
 #The output is the list consisting of the average, standard deviation, and first K moments, followed by the
@@ -375,26 +378,27 @@ end:
 #SimuCount(USEC(),1/2,1000,4);
 SimuCount:=proc(L,p,N,K) local f,x,co,H,i:
 
-#The initial count is of the number of consistent votes was 0
-co:=0:
+  #The initial count is of the number of consistent votes was 0
+  co:=0:
 
-#We compute at the same time the generating function according to the number of votes of the first candidate  at the end
-#and keep track of those  where the vote was consistent
+  #We compute at the same time the generating function according to the number of votes of the first candidate  at the end
+  #and keep track of those  where the vote was consistent
 
-f:=0:
-for i from 1 to N do
- H:=SimuCount1(L,p):
+  f:=0:
+  for i from 1 to N do
+    H:=SimuCount1(L,p):
 
- f:=f+x^H[nops(H)][1]:
+    f:=f+x^H[nops(H)][1]:
 
- if IsConsistent(H) then
-   co:=co+1:
- fi:
-od:
- 
-evalf(StatAnal(f,x,K)),evalf(co/N):
+    if IsConsistent(H) then
+      co:=co+1:
+    fi:
+  od:
+  
+  evalf(StatAnal(f,x,K)),evalf(co/N):
 
 end:
+
 
 #SimuCountInformed(L,N,K): simulates N random counting with the list L of the numbers of electors along with 
 #the probability that each state will vote blue or vote red.
@@ -403,27 +407,86 @@ end:
 #SimuCountInformed(USEC2(),1000,4);
 SimuCountInformed:=proc(L,N,K) local f,x,co,H,i:
 
-#The initial count is of the number of consistent votes was 0
-co:=0:
+  #The initial count is of the number of consistent votes was 0
+  co:=0:
 
-#We compute at the same time the generating function according to the number of votes of the blue candidate  at the end
-#and keep track of those  where the vote was consistent
+  #We compute at the same time the generating function according to the number of votes of the blue candidate  at the end
+  #and keep track of those  where the vote was consistent
 
-f:=0:
-for i from 1 to N do
- H:=SimuCountInformed1(L):
+  f:=0:
+  for i from 1 to N do
+    H:=SimuCountInformed1(L):
 
- f:=f+x^H[nops(H)][1]:
+    f:=f+x^H[nops(H)][1]:
 
- if IsConsistent(H) then
-   co:=co+1:
- fi:
-od:
- 
-evalf(StatAnal(f,x,K)),evalf(co/N):
+    if IsConsistent(H) then
+      co:=co+1:
+    fi:
+  od:
+  
+  evalf(StatAnal(f,x,K)),evalf(co/N):
 
 end:
 
+
+# Winprob(n): Assume every state is independently counted. given a probability of Trump winning each state, and a positive interger N. use SimuCount1 N times to get the average probability of Trump winning at the end. 
+Winprob := proc(p, N) local success, i, res: 
+  success := 0;
+  for i from 1 to N by 1 do
+    res := SimuCount1(USEC(), p);
+    if res[nops(res)][1] > res[nops(res)][2] then
+      success := success + 1; 
+    end if; 
+  end do; 
+  evalf(success / N)
+end:
+
+
+#Winprob1(n):Given a positive integer n, use simucountinformed to simulate n times and calculate the percentage of winning.
+#Try:
+#Winprob1(100)
+Winprob1:=proc(n) local sum,i:
+  sum:=0:
+  for i from 1 to n do 
+    if SimuCountInformed1(USEC2())[52][1]>SimuCountInformed1(USEC2())[52][2] then
+      sum:=sum+1:
+    fi:
+  od:
+  evalf(sum/n):
+end:
+
+
+#sp(L):Given a list of vote percentage of a state in the past years, output the state's winning probability with caliberated winning margin of stronghold states and swing states.
+#Try:
+#sp([48, 45, 76, 46, 34])
+sp:=proc(L) local L1,i,S1,S2 ,mean2,sum,mean1, s:
+  mean1:=0:sum:=0: mean2:=0: L1:=[]:S1:=[]: S2:=[]:L1:=[]:
+
+  for i from 1 to nops(L) do
+    L1:=[op(L1),L[i]-(100-L[i])]:
+  od:
+
+  for i from 1 to nops(L) do
+    if abs(L1[i])<8 then
+      S1:=[op(S1),L1[i]]:
+    else 
+      S2:=[op(S2),L1[i]]:
+    fi:
+  od: 
+
+  mean2:=add(S2)/add(abs(s),s in S2): 
+
+  for i from 1 to nops(S1) do
+    if S1[i]>0 then
+      sum:=sum+1:
+    fi:
+  od:
+
+  mean1:=sum/nops(S1): 
+
+  evalf((mean1*nops(S1)+(1/2*mean2+1/2)*nops(S2))/nops(L)):
+
+end:
 
 
 #StatAnalS(f,x,K): Given a generating function f in x with SYMBOLIC coefficients
@@ -435,40 +498,40 @@ StatAnalS:=proc(f,x,K) local f1,i,mu,sig,M,r:
 
 
 
-#turn it into a probability generating function
-f1:=expand(f/subs(x=1,f)):
+  #turn it into a probability generating function
+  f1:=expand(f/subs(x=1,f)):
 
-#mu is the average
-mu:=subs(x=1,diff(f1,x)):
+  #mu is the average
+  mu:=subs(x=1,diff(f1,x)):
 
-#We redefine f1 to be the probability generating function for the CENTRALIZED prob. generating function
-#where the average is 1
-f1:=expand(f1/x^mu):
+  #We redefine f1 to be the probability generating function for the CENTRALIZED prob. generating function
+  #where the average is 1
+  f1:=expand(f1/x^mu):
 
-#We keep applying the operation f->x*diff(f,x) in order to computer higher moments
+  #We keep applying the operation f->x*diff(f,x) in order to computer higher moments
 
-#Doing it once
-f1:=x*diff(f1,x):
+  #Doing it once
+  f1:=x*diff(f1,x):
 
-#Doing it again (for the second moment)
-f1:=x*diff(f1,x):
+  #Doing it again (for the second moment)
+  f1:=x*diff(f1,x):
 
-#The standard deviation is the square-root of the variance (alias second-moment about the mean)
-sig:=sqrt(subs(x=1,f1)):
+  #The standard deviation is the square-root of the variance (alias second-moment about the mean)
+  sig:=sqrt(subs(x=1,f1)):
 
-#The first two entries of M are the most important part, the expectation (alias mean, alias average) and the standard-deviation
+  #The first two entries of M are the most important part, the expectation (alias mean, alias average) and the standard-deviation
 
-M:=[mu,sig]:
+  M:=[mu,sig]:
 
 
 
-#We now find the higher moments about the mean
-for r from 3 to K do
-f1:=expand(x*diff(f1,x)):
-M:=[op(M),subs(x=1,f1)/sig^r]:
-od:
+  #We now find the higher moments about the mean
+  for r from 3 to K do
+    f1:=expand(x*diff(f1,x)):
+    M:=[op(M),subs(x=1,f1)/sig^r]:
+  od:
 
-#The final output is the list of length K as desired
-M:
+  #The final output is the list of length K as desired
+  M:
 
 end:
