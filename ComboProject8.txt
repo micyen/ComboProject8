@@ -28,7 +28,7 @@ print(`For Help with any of the functions, type  Help(FunctionName):`):
 with(combinat):
 Help:=proc()
 if nargs=0 then
-print(`The available procedures are: GFv, GFvp, GFvp2, LC, IsConsistent`):
+print(`The available procedures are: GFv, GFvp, GFvp2, LC, IsConsistent, WinProb, WinProbInformed, sp,`):
 print(`SimuCount, SimuCountInformed, SimuCount1, SimuCountInformed1, StatAnal, StatAnalS, USEC, USEC2,`):
 print(` `): 
 
@@ -95,6 +95,24 @@ print(`blue or vote red, simulates ONE random count where every unpicked state i
 print(`counted next. The output is the list of partial scores; the first part is blue and the second part`):
 print(`is red. Try:`):
 print(`SimuCountInformed1(USEC2());`):
+
+elif nargs=1 and args[1]=WinProb then
+print(`WinProb(L,p,N): Assume the probability of winning each state is independent. Given a list L`):
+print(`representing the  number of electors in nops(L) states, a probability of a candidate winning`):
+print(`each state, and a positive integer N, uses SimuCount1 N times to experimentally get the`):
+print(`average probability of that candidate winning at the end. Try:`):
+print(`WinProb(USEC(),1/2,1000);`):
+
+elif nargs=1 and args[1]=WinProbInformed then
+print(`WinProbInformed(L,N): Given a positive integer N and list L of the numbers of electors along`):
+print(`with the probability  that each state will vote blue or vote red, uses SimuCountInformed1 N`):
+print(`times to experimentally get the average probability that the blue candidate will win. Try:`):
+print(`WinProbInformed(USEC2(),1000);`):
+
+elif nargs=1 and args[1]=sp then
+print(`sp(L):Given a list of vote percentage of a state in the past years, output the state's winning`):
+print(`probability with calibrated winning margin of stronghold states and swing states. Try:`):
+print(`sp([48, 45, 76, 46, 34]);`):
 
 
 
@@ -429,38 +447,44 @@ SimuCountInformed:=proc(L,N,K) local f,x,co,H,i:
 end:
 
 
-# Winprob(n): Assume every state is independently counted. given a probability of Trump winning each state, and a positive interger N. use SimuCount1 N times to get the average probability of Trump winning at the end. 
-Winprob := proc(p, N) local success, i, res: 
-  success := 0;
-  for i from 1 to N by 1 do
-    res := SimuCount1(USEC(), p);
+#WinProb(L,p,N): Assume every state is independently counted. Given a probability of a candidate winning each
+#state, and a positive integer N, uses SimuCount1 N times to experimentally get the average probability
+#of that candidate winning at the end. Try:
+#WinProb(USEC(),1/2,1000);
+WinProb := proc(L,p,N) local success,i,res: 
+  success := 0:
+  for i from 1 to N do
+    res := SimuCount1(L, p):
     if res[nops(res)][1] > res[nops(res)][2] then
-      success := success + 1; 
-    end if; 
-  end do; 
-  evalf(success / N)
+      success := success + 1:
+    fi: 
+  od:
+  evalf(success / N):
 end:
 
 
-#Winprob1(n):Given a positive integer n, use simucountinformed to simulate n times and calculate the percentage of winning.
-#Try:
-#Winprob1(100)
-Winprob1:=proc(n) local sum,i:
-  sum:=0:
-  for i from 1 to n do 
-    if SimuCountInformed1(USEC2())[52][1]>SimuCountInformed1(USEC2())[52][2] then
-      sum:=sum+1:
+#WinProbInformed(L,N): Given a positive integer N and list L of the numbers of electors along with the probability 
+#that each state will vote blue or vote red, uses SimuCountInformed1 N times to experimentally get the 
+#average probability that the blue candidate will win. Try:
+#WinProbInformed(USEC2(),1000);
+WinProbInformed := proc(L,N) local success,i,res:
+  success:=0:
+  for i from 1 to N do 
+    res := SimuCountInformed1(L):
+    if res[nops(res)][1] > res[nops(res)][2] then
+      success := success + 1:
     fi:
   od:
-  evalf(sum/n):
+  evalf(success / N):
 end:
 
 
-#sp(L):Given a list of vote percentage of a state in the past years, output the state's winning probability with caliberated winning margin of stronghold states and swing states.
+#sp(L):Given a list of vote percentage of a state in the past years, output the state's winning probability with 
+#calibrated winning margin of stronghold states and swing states.
 #Try:
 #sp([48, 45, 76, 46, 34])
-sp:=proc(L) local L1,i,S1,S2 ,mean2,sum,mean1, s:
-  mean1:=0:sum:=0: mean2:=0: L1:=[]:S1:=[]: S2:=[]:L1:=[]:
+sp:=proc(L) local L1,i,S1,S2,mean2,sum,mean1,s:
+  mean1:=0: sum:=0: mean2:=0: L1:=[]: S1:=[]: S2:=[]: L1:=[]:
 
   for i from 1 to nops(L) do
     L1:=[op(L1),L[i]-(100-L[i])]:
