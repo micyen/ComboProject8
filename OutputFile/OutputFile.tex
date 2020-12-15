@@ -26,7 +26,6 @@ v := [81282896, 74222484];
 p := v[1]/(v[1]+v[2]);
 WinProb(USEC(),p,1000);
 
-Output:
 0.5840000000
 \end{verbatim}
 
@@ -38,7 +37,6 @@ p := v[1]/(v[1]+v[2]):
 f:=evalf(GFvp(USEC(),p,x)):
 evalf(add(coeff(f,x,i),i=270..degree(f,x)));
 
-Output:
 0.5896628367
 \end{verbatim}
 
@@ -47,7 +45,6 @@ Output:
 \begin{verbatim}
 WinProbInformed(USEC2(),1000);
 
-Output:
 0.5560000000
 \end{verbatim}
 

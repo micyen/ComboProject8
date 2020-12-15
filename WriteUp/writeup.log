@@ -1,6 +1,6 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  13 DEC 2020 15:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  14 DEC 2020 19:45
 entering extended mode
- restricted \write18 enabled.
+ \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
 **writeup.tex
@@ -922,23 +922,12 @@ Package biblatex Info: Reference segment=0 on input line 11.
 
 {/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 [1]
-Underfull \hbox (badness 3009) in paragraph at lines 75--77
+Underfull \hbox (badness 3009) in paragraph at lines 77--79
 []\OT1/cmr/m/n/12 United States Elec-toral Col-lege, $\OT1/cmtt/m/n/12 https : 
 / / en . wikipedia . org / wiki / United _ States _
  []
 
 [2] (./writeup.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package biblatex Warning: Please (re)run Biber on the file:
-(biblatex)                writeup
-(biblatex)                and rerun LaTeX afterwards.
-
 Package logreq Info: Writing requests to 'writeup.run.xml'.
 \openout1 = `writeup.run.xml'.
 
@@ -946,7 +935,7 @@ Package logreq Info: Writing requests to 'writeup.run.xml'.
 Here is how much of TeX's memory you used:
  30199 strings out of 480608
  742452 string characters out of 5903631
- 1463968 words of memory out of 5000000
+ 1463007 words of memory out of 5000000
  45660 multiletter control sequences out of 15000+600000
  538042 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -957,7 +946,7 @@ Here is how much of TeX's memory you used:
 usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
 r/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/
 local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on writeup.pdf (3 pages, 75800 bytes).
+Output written on writeup.pdf (3 pages, 76355 bytes).
 PDF statistics:
  41 PDF objects out of 1000 (max. 8388607)
  29 compressed objects within 1 object stream
